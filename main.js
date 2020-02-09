@@ -1,4 +1,4 @@
-let platillo = new Platillo(document);
+let platillo = new Platillo(document, 100);
 
 function step(delta)
 {

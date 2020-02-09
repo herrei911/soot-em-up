@@ -1,13 +1,13 @@
 class Platillo
 {
-    constructor (document)
+    constructor (document, top)
     {
         this.element = document.createElement("img");
         this.element.src = "img/platillo.png";
         this.element.className = "platillo";
         document.body.appendChild(this.element);
         this.left = document.body.clientWidth + this.width;
-        this.top = 100;
+        this.top = top;
         this.velocidad = 1;
     }
 
