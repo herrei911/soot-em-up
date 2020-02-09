@@ -1,4 +1,9 @@
-let platillo = document.createElement("img");
-platillo.src = "img/platillo.png";
-platillo.className = "platillo";
-document.body.appendChild(platillo);
+let platillo = new Platillo(document);
+
+function step(delta)
+{
+    platillo.update(delta);
+    requestAnimationFrame(step);
+}
+
+requestAnimationFrame(step);
