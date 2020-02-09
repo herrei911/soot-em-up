@@ -9,8 +9,12 @@ setInterval(
     2000
 );
 
-function step(delta)
+let lastMilliseconds = performance.now();
+
+function step(milliseconds)
 {
+    let delta = milliseconds - lastMilliseconds;
+    lastMilliseconds = milliseconds;
     for (let index = 0; index < objetos.length; index++)
     {
         let objeto = objetos[index];

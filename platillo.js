@@ -6,9 +6,9 @@ class Platillo
         this.element.src = "img/platillo.png";
         this.element.className = "platillo";
         document.body.appendChild(this.element);
+        this._velocidad = 100;
         this.left = document.body.clientWidth + this.width;
         this.top = top;
-        this.velocidad = 1;
     }
 
     dispose()
@@ -23,8 +23,7 @@ class Platillo
     update(delta)
     {
         let seconds = delta / 1000;
-        let newLeft = this._left - (seconds * this.velocidad);
-        this.left = newLeft;
+        this.left = this._left - (seconds * this._velocidad);
     }
 
     get velocidad()
