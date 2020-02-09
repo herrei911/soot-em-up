@@ -11,6 +11,15 @@ class Platillo
         this.velocidad = 1;
     }
 
+    dispose()
+    {
+        if (this.element != null)
+        {
+            document.body.removeChild(this.element);
+            this.element = null;
+        }
+    }
+
     update(delta)
     {
         let seconds = delta / 1000;
@@ -36,7 +45,10 @@ class Platillo
     set left(value)
     {
         this._left = value;
-        this.element.style.left = value + "px";
+        if (this.element != null)
+        {
+            this.element.style.left = value + "px";
+        }
     }
 
     get top()
@@ -47,11 +59,19 @@ class Platillo
     set top(value)
     {
         this._top = value;
-        this.element.style.top = value + "px";
+        if (this.element != null)
+        {
+            this.element.style.top = value + "px";
+        }
     }
 
     get width()
     {
-        return this.element.width;
+        if (this.element != null)
+        {
+            return this.element.width;
+        }
+
+        return 0;
     }
 }

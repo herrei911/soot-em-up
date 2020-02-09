@@ -15,6 +15,11 @@ function step(delta)
     {
         let objeto = objetos[index];
         objeto.update(delta);
+        if (objeto.left < -objeto.width)
+        {
+            objeto.dispose();
+            objetos.splice(index, 1);
+        }
     }
     requestAnimationFrame(step);
 }
