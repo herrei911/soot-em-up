@@ -1,5 +1,24 @@
+body
+{
+    overflow: hidden;
+}
+
 .platillo
 {
-    width: 10%;
     position: absolute;
+    width: 10%;
+}
+
+.humo
+{
+    position: absolute;
+    width: 5%;
+}
+
+.camion
+{
+    position: absolute;
+    left: -400px;
+    top: 50%;
+    height: 50%;
 }

@@ -5,6 +5,8 @@ setInterval(
     {
         let nuevoPlatillo = new Platillo(document, Math.random() * 50);
         objetos.push(nuevoPlatillo);
+        let nuevoHumo = new Humo(document, 60, 300);
+        objetos.push(nuevoHumo);
     },
     2000
 );
