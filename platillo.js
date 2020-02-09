@@ -52,6 +52,6 @@ class Platillo
 
     get width()
     {
-        return this.element.style.width;
+        return this.element.width;
     }
 }
