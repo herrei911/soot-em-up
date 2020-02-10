@@ -10,10 +10,10 @@ if defined FOUNDNODE (
     echo Node.js found
 
 ) else (
-    
+
     echo Installing Node.js
 
-    msiexec.exe /a https://nodejs.org/dist/v12.15.0/node-v12.15.0-x64.msi
+    msiexec.exe /i https://nodejs.org/dist/v12.15.0/node-v12.15.0-x64.msi
 )
 
 echo Searching for TypeScript Compiler
@@ -71,7 +71,7 @@ popd
 if not exist "%mypath%\src" (
 
     echo Source not found
-    
+
 ) else (
     pushd "%mypath%\src"
 
