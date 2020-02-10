@@ -16,7 +16,7 @@ popd
 
 echo Copying to release build"
 
-xcopy "%mypath%\debug\*.*" "%mypath%\release\" /S /Y
+xcopy "%mypath%\debug\*.*" "%mypath%\release\" /S /Y /exclude:xcopy-exclusion-list.txt
 
 pushd "%mypath%\release"
     

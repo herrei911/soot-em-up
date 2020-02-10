@@ -82,5 +82,5 @@ if not exist "%mypath%\src" (
 
     echo Copying to debug build
 
-    xcopy "%mypath%\src\*.*" "%mypath%\debug\" /S /Y
+    xcopy "%mypath%\src\*.*" "%mypath%\debug\" /S /Y /exclude:xcopy-exclusion-list.txt
 )
