@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "none",
+        "strict": true,
+        "out": "./main.js"
+    }
+}

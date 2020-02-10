@@ -1,11 +1,11 @@
-let objetos = [];
+let objetos: any[] = [];
 
 setInterval(
     function()
     {
-        let nuevoPlatillo = new Platillo(document, Math.random() * 50);
+        let nuevoPlatillo = new Entities.Platillo(document, Math.random() * 50);
         objetos.push(nuevoPlatillo);
-        let nuevoHumo = new Humo(document, 60, 300);
+        let nuevoHumo = new Entities.Humo(document, 60, 300);
         objetos.push(nuevoHumo);
     },
     2000
@@ -13,7 +13,7 @@ setInterval(
 
 let lastMilliseconds = performance.now();
 
-function step(milliseconds)
+function step(milliseconds: number)
 {
     let delta = milliseconds - lastMilliseconds;
     lastMilliseconds = milliseconds;
