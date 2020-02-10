@@ -60,19 +60,27 @@ if defined FOUNDUCSS (
 
 echo Cleaning debug build
 
+if not exist "%mypath%\debug" mkdir "%mypath%\debug"
+
 pushd "%mypath%\debug"
 
     rd /s /q . 2>nul
 
 popd
 
-pushd "%mypath%\src"
+if not exist "%mypath%\src" (
 
-    echo Compiling TypeScript
+    echo Source not found
+    
+) else (
+    pushd "%mypath%\src"
 
-    call tsc -p tsconfig.json
-popd
+        echo Compiling TypeScript
 
-echo Copying to debug build
+        call tsc -p tsconfig.json
+    popd
 
-xcopy "%mypath%\src\*.*" "%mypath%\debug\" /S /Y
+    echo Copying to debug build
+
+    xcopy "%mypath%\src\*.*" "%mypath%\debug\" /S /Y
+)
