@@ -1,6 +1,7 @@
 /// <reference path="geometry/aabb.ts" />
 /// <reference path="adapters/gameloop.ts" />
-let objetos: Engine.GameObject[] = [];
+let soots: Engine.GameObject[] = [];
+let saucers: Engine.GameObject[] = [];
 let viewPort: Geometry.AABB;
 
 Adapters.gameloop(
@@ -21,28 +22,50 @@ Adapters.gameloop(
         setInterval(
             function()
             {
-                let nuevoPlatillo = new Engine.GameObject(new Adapters.DOMImg("img/platillo.png", "platillo"))
-                nuevoPlatillo.aabbHolder.position = {x: viewPort.size.width, y: Math.random() * 50};
-                nuevoPlatillo.physicsDrivenBody.velocity = {x: -100, y: 0};
-                objetos.push(nuevoPlatillo);
-                let nuevoHumo = new Engine.GameObject(new Adapters.DOMImg("img/humo.png", "humo"))
-                nuevoHumo.aabbHolder.position = {x: 60, y: 300};
-                nuevoHumo.physicsDrivenBody.velocity = {x: 0, y: -100};
-                objetos.push(nuevoHumo);
+                let newSaucer = new Engine.GameObject(new Adapters.DOMImg("img/platillo.png", "platillo"))
+                newSaucer.aabbHolder.position = {x: viewPort.size.width, y: Math.random() * 50};
+                newSaucer.physicsDrivenBody.velocity = {x: -100, y: 0};
+                saucers.push(newSaucer);
+                let newSoot = new Engine.GameObject(new Adapters.DOMImg("img/humo.png", "humo"))
+                newSoot.aabbHolder.position = {x: 60, y: 300};
+                newSoot.physicsDrivenBody.velocity = {x: 0, y: -100};
+                soots.push(newSoot);
             },
             2000
         );
     },
     (deltaSeconds: number) =>
     {
-        for (let index = 0; index < objetos.length; index++)
+        for (let saucerIndex = 0; saucerIndex < saucers.length; saucerIndex++)
         {
-            let objeto = objetos[index];
-            objeto.update(deltaSeconds);
-            if (!Geometry.AABB.checkOverlap(viewPort, objeto.aabbHolder.aabb))
+            let saucer = saucers[saucerIndex];
+            saucer.update(deltaSeconds);
+            if (!Geometry.AABB.checkOverlap(viewPort, saucer.aabbHolder.aabb))
             {
-                objeto.dispose();
-                objetos.splice(index, 1);
+                saucer.dispose();
+                saucers.splice(saucerIndex, 1);
+            }
+        }
+        for (let sootIndex = 0; sootIndex < soots.length; sootIndex++)
+        {
+            let soot = soots[sootIndex];
+            soot.update(deltaSeconds);
+            if (!Geometry.AABB.checkOverlap(viewPort, soot.aabbHolder.aabb))
+            {
+                soot.dispose();
+                soots.splice(sootIndex, 1);
+                continue;
+            }
+            for (let saucerIndex = 0; saucerIndex < saucers.length; saucerIndex++)
+            {
+                let saucer = saucers[saucerIndex];
+                if (Geometry.AABB.checkOverlap(soot.aabbHolder.aabb, saucer.aabbHolder.aabb))
+                {
+                    soot.dispose();
+                    soots.splice(sootIndex, 1);
+                    saucer.dispose();
+                    saucers.splice(saucerIndex, 1);
+                }
             }
         }
     }

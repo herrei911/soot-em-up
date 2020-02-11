@@ -3,19 +3,19 @@ module Engine
     export class PhysicsDrivenBody implements UpdateCapable
     {
         public velocity : Geometry.Vector;
-        public positionHolder : Geometry.PositionHolder;
+        public aabbHolder : Geometry.AABBHolder;
 
-        constructor(positionHolder: Geometry.PositionHolder, velocity : Geometry.Vector)
+        constructor(aabbHolder: Geometry.AABBHolder, velocity : Geometry.Vector)
         {
-            this.positionHolder = positionHolder;
+            this.aabbHolder = aabbHolder;
             this.velocity = velocity;
         }
 
         public update(deltaSeconds: number): void
         {
-            this.positionHolder.position = Geometry.Vector.add
+            this.aabbHolder.position = Geometry.Vector.add
             (
-                this.positionHolder.position,
+                this.aabbHolder.position,
                 Geometry.Vector.mult(this.velocity, deltaSeconds)
             );
         }
