@@ -1,33 +1,49 @@
-let objetos: any[] = [];
+/// <reference path="geometry/aabb.ts" />
+/// <reference path="adapters/gameloop.ts" />
+let objetos: Engine.GameObject[] = [];
+let viewPort: Geometry.AABB;
 
-setInterval(
-    function()
+Adapters.gameloop(
+    () =>
     {
-        let nuevoPlatillo = new Entities.Platillo(document, Math.random() * 50);
-        objetos.push(nuevoPlatillo);
-        let nuevoHumo = new Entities.Humo(document, 60, 300);
-        objetos.push(nuevoHumo);
+        let clientRect = document.body.getBoundingClientRect();
+        viewPort = new Geometry.AABB
+        (
+            {
+                width: clientRect.width,
+                height: clientRect.height
+            },
+            {
+                x: clientRect.x,
+                y: clientRect.y
+            }
+        );
+        setInterval(
+            function()
+            {
+                let nuevoPlatillo = new Engine.GameObject(new Adapters.DOMImg("img/platillo.png", "platillo"))
+                nuevoPlatillo.aabbHolder.position = {x: viewPort.size.width, y: Math.random() * 50};
+                nuevoPlatillo.physicsDrivenBody.velocity = {x: -100, y: 0};
+                objetos.push(nuevoPlatillo);
+                let nuevoHumo = new Engine.GameObject(new Adapters.DOMImg("img/humo.png", "humo"))
+                nuevoHumo.aabbHolder.position = {x: 60, y: 300};
+                nuevoHumo.physicsDrivenBody.velocity = {x: 0, y: -100};
+                objetos.push(nuevoHumo);
+            },
+            2000
+        );
     },
-    2000
-);
-
-let lastMilliseconds = performance.now();
-
-function step(milliseconds: number)
-{
-    let delta = milliseconds - lastMilliseconds;
-    lastMilliseconds = milliseconds;
-    for (let index = 0; index < objetos.length; index++)
+    (deltaSeconds: number) =>
     {
-        let objeto = objetos[index];
-        objeto.update(delta);
-        if (objeto.left < -objeto.width)
+        for (let index = 0; index < objetos.length; index++)
         {
-            objeto.dispose();
-            objetos.splice(index, 1);
+            let objeto = objetos[index];
+            objeto.update(deltaSeconds);
+            if (!Geometry.AABB.checkOverlap(viewPort, objeto.aabbHolder.aabb))
+            {
+                objeto.dispose();
+                objetos.splice(index, 1);
+            }
         }
     }
-    requestAnimationFrame(step);
-}
-
-requestAnimationFrame(step);
+);
