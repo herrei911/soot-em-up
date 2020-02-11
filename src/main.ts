@@ -26,12 +26,22 @@ Adapters.gameloop(
                 newSaucer.aabbHolder.position = {x: viewPort.size.width, y: Math.random() * 50};
                 newSaucer.physicsDrivenBody.velocity = {x: -100, y: 0};
                 saucers.push(newSaucer);
-                let newSoot = new Engine.GameObject(new Adapters.DOMImg("img/humo.png", "humo"))
-                newSoot.aabbHolder.position = {x: 60, y: 300};
-                newSoot.physicsDrivenBody.velocity = {x: 0, y: -100};
-                soots.push(newSoot);
             },
             2000
+        );
+        document.addEventListener
+        (
+            'keydown',
+            function(event)
+            {
+                if(event.keyCode == 32)
+                {
+                    let newSoot = new Engine.GameObject(new Adapters.DOMImg("img/humo.png", "humo"))
+                    newSoot.aabbHolder.position = {x: 60, y: 300};
+                    newSoot.physicsDrivenBody.velocity = {x: 0, y: -100};
+                    soots.push(newSoot);
+                }
+            }
         );
     },
     (deltaSeconds: number) =>
