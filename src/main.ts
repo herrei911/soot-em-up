@@ -29,17 +29,30 @@ Adapters.gameloop(
             },
             2000
         );
+        let pressed = false;
         document.addEventListener
         (
             'keydown',
             function(event)
             {
-                if(event.keyCode == 32)
+                if(event.keyCode == 32 && !pressed)
                 {
+                    pressed = true;
                     let newSoot = new Engine.GameObject(new Adapters.DOMImg("img/humo.png", "humo"))
                     newSoot.aabbHolder.position = {x: 60, y: 300};
                     newSoot.physicsDrivenBody.velocity = {x: 0, y: -100};
                     soots.push(newSoot);
+                }
+            }
+        );
+        document.addEventListener
+        (
+            'keyup',
+            function(event)
+            {
+                if(event.keyCode == 32)
+                {
+                    pressed = false;
                 }
             }
         );
