@@ -23,7 +23,7 @@ Adapters.gameloop(
             function()
             {
                 let newSaucer = new Engine.GameObject(new Adapters.DOMImg("img/platillo.png", "platillo"))
-                newSaucer.aabbHolder.position = {x: viewPort.size.width, y: Math.random() * 50};
+                newSaucer.aabbHolder.position = {x: viewPort.size.width, y: Math.floor(Math.random() * 5) * 50};
                 newSaucer.physicsDrivenBody.velocity = {x: -100, y: 0};
                 saucers.push(newSaucer);
             },
