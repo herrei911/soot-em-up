@@ -23,7 +23,7 @@ Adapters.gameloop(
             function()
             {
                 let newSaucer = new Engine.GameObject(new Adapters.DOMImg("img/platillo.png", "platillo"))
-                newSaucer.aabbHolder.position = {x: viewPort.size.width, y: Math.floor(Math.random() * 5) * 50};
+                newSaucer.graphicElement.position = {x: viewPort.size.width, y: Math.floor(Math.random() * 5) * 50};
                 newSaucer.physicsDrivenBody.velocity = {x: -100, y: 0};
                 saucers.push(newSaucer);
             },
@@ -39,7 +39,7 @@ Adapters.gameloop(
                 {
                     pressed = true;
                     let newSoot = new Engine.GameObject(new Adapters.DOMImg("img/humo.png", "humo"))
-                    newSoot.aabbHolder.position = {x: 60, y: 300};
+                    newSoot.graphicElement.position = {x: 60, y: 300};
                     newSoot.physicsDrivenBody.velocity = {x: 0, y: -100};
                     soots.push(newSoot);
                 }
@@ -63,7 +63,7 @@ Adapters.gameloop(
         {
             let saucer = saucers[saucerIndex];
             saucer.update(deltaSeconds);
-            if (!Geometry.AABB.checkOverlap(viewPort, saucer.aabbHolder.aabb))
+            if (!Geometry.AABB.checkOverlap(viewPort, saucer.graphicElement.aabb))
             {
                 saucer.dispose();
                 saucers.splice(saucerIndex, 1);
@@ -73,7 +73,7 @@ Adapters.gameloop(
         {
             let soot = soots[sootIndex];
             soot.update(deltaSeconds);
-            if (!Geometry.AABB.checkOverlap(viewPort, soot.aabbHolder.aabb))
+            if (!Geometry.AABB.checkOverlap(viewPort, soot.graphicElement.aabb))
             {
                 soot.dispose();
                 soots.splice(sootIndex, 1);
@@ -82,7 +82,7 @@ Adapters.gameloop(
             for (let saucerIndex = 0; saucerIndex < saucers.length; saucerIndex++)
             {
                 let saucer = saucers[saucerIndex];
-                if (Geometry.AABB.checkOverlap(soot.aabbHolder.aabb, saucer.aabbHolder.aabb))
+                if (Geometry.AABB.checkOverlap(soot.graphicElement.aabb, saucer.graphicElement.aabb))
                 {
                     soot.dispose();
                     soots.splice(sootIndex, 1);

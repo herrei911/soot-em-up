@@ -2,13 +2,13 @@ module Engine
 {
     export class GameObject implements UpdateCapable, Disposable
     {
-        public readonly aabbHolder: Gateways.GraphicElement;
+        public readonly graphicElement: Gateways.GraphicElement;
         public readonly physicsDrivenBody: Engine.PhysicsDrivenBody;
 
-        constructor (aabbHolder: Gateways.GraphicElement)
+        constructor (graphicElement: Gateways.GraphicElement)
         {
-            this.aabbHolder = aabbHolder;
-            this.physicsDrivenBody = new Engine.PhysicsDrivenBody(aabbHolder, {x:0, y:0});
+            this.graphicElement = graphicElement;
+            this.physicsDrivenBody = new Engine.PhysicsDrivenBody(graphicElement, {x:0, y:0});
         }
 
         public update(deltaSeconds: number): void
@@ -18,7 +18,7 @@ module Engine
 
         dispose(): void
         {
-            this.aabbHolder.dispose();
+            this.graphicElement.dispose();
         }
     }
 }
