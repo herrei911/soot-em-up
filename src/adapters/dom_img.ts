@@ -3,7 +3,7 @@ module Adapters
     export class DOMImg implements Gateways.GraphicElement
     {
         private _element : HTMLImageElement | null;
-        private _aabb: Geometry.AABB;
+        private _box: Geometry.Box;
 
         constructor (src: string, className: string)
         {
@@ -12,7 +12,7 @@ module Adapters
             this._element.className = className;
             document.body.appendChild(this._element);
             let rect = this.getElement().getBoundingClientRect();
-            this._aabb = {
+            this._box = {
                 position: new Geometry.Vector(rect.x, rect.y),
                 size:
                 {
@@ -22,14 +22,14 @@ module Adapters
             };
         }
 
-        public get aabb(): Geometry.AABB
+        public get box(): Geometry.Box
         {
-            return this._aabb;
+            return this._box;
         }
 
-        public set aabb(value: Geometry.AABB)
+        public set box(value: Geometry.Box)
         {
-            this._aabb = value;
+            this._box = value;
             let element = this.getElement();
             element.style.position = "absolute";
             element.style.left = value.position.x + "px";
@@ -40,12 +40,12 @@ module Adapters
 
         public get position(): Geometry.Vector
         {
-            return this._aabb.position;
+            return this._box.position;
         }
 
         public set position(value: Geometry.Vector)
         {
-            this._aabb.position = value;
+            this._box.position = value;
             let element = this.getElement();
             element.style.position = "absolute";
             element.style.left = value.x + "px";
@@ -54,12 +54,12 @@ module Adapters
 
         public get size(): Geometry.Size
         {
-            return this._aabb.size;
+            return this._box.size;
         }
 
         public set size(value: Geometry.Size)
         {
-            this._aabb.size = value;
+            this._box.size = value;
             let element = this.getElement();
             element.style.position = "absolute";
             element.style.width = value.width + "px";

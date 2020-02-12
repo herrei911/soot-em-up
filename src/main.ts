@@ -1,14 +1,14 @@
-/// <reference path="geometry/aabb.ts" />
+/// <reference path="geometry/box.ts" />
 /// <reference path="adapters/gameloop.ts" />
 let soots: Engine.GameObject[] = [];
 let saucers: Engine.GameObject[] = [];
-let viewPort: Geometry.AABB;
+let viewPort: Geometry.Box;
 
 Adapters.gameloop(
     () =>
     {
         let clientRect = document.body.getBoundingClientRect();
-        viewPort = new Geometry.AABB
+        viewPort = new Geometry.Box
         (
             {
                 width: clientRect.width,
@@ -63,7 +63,7 @@ Adapters.gameloop(
         {
             let saucer = saucers[saucerIndex];
             saucer.update(deltaSeconds);
-            if (!Geometry.AABB.checkOverlap(viewPort, saucer.graphicElement.aabb))
+            if (!Geometry.Box.checkOverlap(viewPort, saucer.graphicElement.box))
             {
                 saucer.dispose();
                 saucers.splice(saucerIndex, 1);
@@ -73,7 +73,7 @@ Adapters.gameloop(
         {
             let soot = soots[sootIndex];
             soot.update(deltaSeconds);
-            if (!Geometry.AABB.checkOverlap(viewPort, soot.graphicElement.aabb))
+            if (!Geometry.Box.checkOverlap(viewPort, soot.graphicElement.box))
             {
                 soot.dispose();
                 soots.splice(sootIndex, 1);
@@ -82,7 +82,7 @@ Adapters.gameloop(
             for (let saucerIndex = 0; saucerIndex < saucers.length; saucerIndex++)
             {
                 let saucer = saucers[saucerIndex];
-                if (Geometry.AABB.checkOverlap(soot.graphicElement.aabb, saucer.graphicElement.aabb))
+                if (Geometry.Box.checkOverlap(soot.graphicElement.box, saucer.graphicElement.box))
                 {
                     soot.dispose();
                     soots.splice(sootIndex, 1);

@@ -2,7 +2,7 @@
 
 module Geometry
 {
-    export class AABB implements PositionHolder, SizeHolder
+    export class Box implements PositionHolder, SizeHolder
     {
         public position: Vector;
         public size: Size;
@@ -13,7 +13,7 @@ module Geometry
             this.size = size;
         }
 
-        public static checkOverlap(a: AABB, b: AABB)
+        public static checkOverlap(a: Box, b: Box)
         {
             let al = a.position.x;
             let at = a.position.y;
